@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 
-dotenv.config({path: "/root/aka-ikenga/.env"});
+dotenv.config({path: "/root/aka-ikenga/backend/.env"});
 
 const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
