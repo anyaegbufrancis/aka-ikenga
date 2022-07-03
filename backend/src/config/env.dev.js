@@ -68,3 +68,6 @@ module.exports = {
     db_password,
     db_name
 };
+
+
+//sudo kill -9 `sudo lsof -t -i:3041`; 
