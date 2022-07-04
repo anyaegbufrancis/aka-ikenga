@@ -3,10 +3,6 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import Logo from "../public/1/logo.PNG"
 import MainNav from './main-nav';
 import AuthNav from './auth-nav';
-import Footer from './footer';
-import ProtectedRoute from "../auth/protected-route"
-import { Home, Profile, ExternalApi } from "../views";
-import { Route, Switch } from 'react-router-dom';
 
 const NavBar = () => {
   return (

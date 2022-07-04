@@ -1,9 +1,25 @@
 // src/views/profile.js
 
 import React from "react";
+// import { useAuth0 } from "@auth0/auth0-react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { PROFILE } from "../redux/actions";
 
 const Profile = () => {
+  // const { user } = useAuth0();
+  // const dispatch = useDispatch();
+  // dispatch({ type: PROFILE, payload: {
+  //   email: user.email,
+  //   email_verified: user.email_verified,
+  //   name: user.name,
+  //   nickname: user.nickname,
+  //   picture: user.picture,
+  //   sub: user.sub,
+  //   updated_at: user.updated_at
+  // }})
+  // const profile = useSelector((state)=> state.COMB.user)
 
+  // console.log(profile)
 
   return (
     <div>

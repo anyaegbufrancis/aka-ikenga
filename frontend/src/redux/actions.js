@@ -1,14 +1,14 @@
 export const PROFILE = 'PROFILE'
 export const IMAGE = 'IMAGE'
 
-export const fetchStocks = (user) => ({
+export const profileStore = (user) => ({
   type: PROFILE, 
   payload: {
     user: user
   }
 })
 
-export const toggle = (image) => ({
+export const imageStore = (image) => ({
   type: IMAGE, 
   payload: {
     image: image
