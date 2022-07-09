@@ -1,5 +1,7 @@
 export const PROFILE = 'PROFILE'
-export const IMAGE = 'IMAGE'
+export const TOGGLER = 'TOGGLER'
+export const OPPTOGGLER = "OPPTOGGLER"
+export const UDETAILS = "UDETAILS"
 
 export const profileStore = (user) => ({
   type: PROFILE, 
@@ -8,9 +10,24 @@ export const profileStore = (user) => ({
   }
 })
 
-export const imageStore = (image) => ({
-  type: IMAGE, 
+export const toggleStore = (status) => ({
+  type: TOGGLER, 
   payload: {
-    image: image
+    status: status
   }
 })
+
+export const opptogglerStore = (status) => ({
+  type: OPPTOGGLER, 
+  payload: {
+    status: status
+  }
+})
+
+export const udetailsStore = (status) => ({
+  type: UDETAILS,
+  payload: {
+    status: status
+  }
+})
+

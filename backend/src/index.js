@@ -11,6 +11,7 @@ const { clientOrigins, serverPort, db_host, db_user, db_password, db_name} = req
 const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json())
+app.use(cors({ origin: clientOrigins }))
 
 
 //Databse Setup
@@ -32,8 +33,8 @@ const storage = multer.diskStorage({
       cb(null, '/root/1')
     },
     filename: function (req, file, cb) {
-      const fileName = file.originalname.split("|")
-      cb(null, "image-" + fileName[1] + '.png')
+        const fileName = file.originalname.split("|")
+        cb(null, "image-" + fileName[1] + '.png')
     }
   })
   
@@ -41,17 +42,31 @@ const storage = multer.diskStorage({
   
 
 // API Post call to User to Update User data
-app.post("/image", upload.single("image"), (req, res) => {
+app.post("/imagesave", upload.single("image"), (req, res) => {
+  console.log(req.body)
     const fileName = req.body.id.split("|")
     const mytime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
     const sqlQuery = `INSERT  INTO users ( user_id, date_update, width_icon, height_icon) VALUES ('${fileName[1]}', '${mytime}', ${req.body.width_icon}, ${req.body.height_icon}) ON DUPLICATE KEY UPDATE date_update=VALUES(date_update), width_icon=VALUES(width_icon), height_icon=VALUES(height_icon)`
-    console.log(sqlQuery)
+    
     con.query(sqlQuery, function (err, result) {
       if (err) throw err;
       console.log("updated!")
     })  
     res.json({ message: fileName[1], width_icon: req.body.width_icon, height_icon: req.body.height_icon });
   });
+
+  app.post("/vanillasave", (req, res) => {
+    console.log(req.body)
+      // const fileName = req.body.id.split("|")
+      // const mytime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+      // const sqlQuery = `INSERT  INTO users ( user_id, date_update, width_icon, height_icon) VALUES ('${fileName[1]}', '${mytime}', ${req.body.width_icon}, ${req.body.height_icon}) ON DUPLICATE KEY UPDATE date_update=VALUES(date_update), width_icon=VALUES(width_icon), height_icon=VALUES(height_icon)`
+      
+      // con.query(sqlQuery, function (err, result) {
+      //   if (err) throw err;
+      //   console.log("updated!")
+      // })  
+      res.json({ fname: req.body.fname, lname: req.body.lname, width_icon: req.body.width_icon, height_icon: req.body.height_icon });
+    });
 
   app.get("/userid/:id", (req, res) => {
     const sqlQuery = `SELECT * FROM users WHERE user_id = '${req.params.id}' ORDER BY date_update  LIMIT 1`

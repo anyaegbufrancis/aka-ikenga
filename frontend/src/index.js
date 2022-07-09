@@ -7,6 +7,7 @@ import { createStore } from "redux"
 import rootReducer from "./redux/reducers";
 import { Provider } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
+//import reportWebVitals from './reportWebVitals'
 import "./index.css";
 
 
@@ -22,4 +23,6 @@ ReactDOM.render(
   </Provider>,
    document.getElementById("root")
 );
+
+//reportWebVitals()
 

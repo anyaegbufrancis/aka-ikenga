@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 
-import { Hero, HomeContent } from "../components";
+import { Landing, HomeContent } from "../components";
 
 const Home = () => (
   <Fragment>
-    <Hero />
-    <hr />
-    <HomeContent />
+    <Landing />
+    {/* <hr />
+    <HomeContent /> */}
   </Fragment>
 );
 

@@ -1,34 +1,53 @@
+
 import { combineReducers } from 'redux'
 import {
   PROFILE,
-  IMAGE,
+  TOGGLER,
+  OPPTOGGLER,
+  UDETAILS,
 } from './actions'
 
 
 const initialState = {
-    user:  {
-      nickname: "",
-      name: "", 
-      picture: "", 
-      updated_at: "", 
-      email: "", 
-      email_verified: false, 
-      sub: ""
-    },
-    image: {
-      id: "", 
-      width: 0, 
-      height: 0, 
-      file: [], 
-      valid: null, 
-      preview: null, 
-      display: "none", 
-      profile_pic: null, 
-      filename: "", 
-      width_icon: 0, 
-      height_icon: 0, 
-      save: "none"
-    }
+  user: {
+    nickname: "",
+    fname: "",
+    lname: "",
+    picture: "",
+    updated_at: "",
+    email: "",
+    email_verified: false,
+    sub: "",
+    id: "",
+    file: [],
+    preview: null,
+    display: "none",
+    profile_pic: "none",
+    filename: "",
+    width_icon: 0,
+    height_icon: 0,
+    width: 0,
+    height: 0,
+    valid: null,
+    pwidth: 0,
+    pheight: 0,
+    m: 0,
+    comp: false,
+    buttonw: 0,
+    buttonmr: 0,
+    buttonmt: 0,
+    buttonml: 0
+  },
+  toggler: {
+    checkstatus: false
+  },
+  opptoggler: {
+    checkstatus: false
+  },
+  udetails: {
+    fname: "",
+    lname: ""
+  }
 }
 
 const COMB = (state = initialState, action) => {
@@ -37,20 +56,26 @@ const COMB = (state = initialState, action) => {
 
     case PROFILE:
       return {
-        ...state, 
+        ...state,
         user: action.payload
       }
-    
-      case IMAGE:
+    case TOGGLER:
       return {
-        ...state, 
-        image: action.payload
+        ...state,
+        toggler: action.payload
       }
-
-
+    case OPPTOGGLER:
+      return {
+        ...state,
+        opptoggler: action.payload
+      }
+    case UDETAILS:
+      return {
+        ...state,
+        udetails: action.payload
+      }
     default:
       return state
-
   }
 }
 
