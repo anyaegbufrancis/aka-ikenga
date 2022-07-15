@@ -2,12 +2,14 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import AppMain from "./app-main";
 
 
 
 const Landing = () => {
-  const udetails = useSelector((state) => state.COMB.udetails)
+  const profile = useSelector((state) => state.COMB.user)
   const { loginWithRedirect, user } = useAuth0()
+  console.log(profile)
   return (
     <div className="text-center hero">
     <img 
@@ -19,8 +21,8 @@ const Landing = () => {
     />
     <h1 className="mb-4" style={{color: "#581D11", fontStyle: "italic"}}>Welcome to NeMes1s Bug Tracker App...</h1>
     <hr style={{marginBottom: "2rem", marginTop: "2rem"}}/>
-    {user && udetails.fname ?    
-    <Button variant="success" size="lg">Proceed to App</Button>
+    {user && profile.fname ?    
+    <Button variant="success" size="lg" href="/mainapp">Proceed to App</Button>
     :
     <p className="lead">
       Please Login to continue{" "}

@@ -15,16 +15,16 @@ app.use(cors({ origin: clientOrigins }))
 
 
 //Databse Setup
-const con = mysql.createConnection({
+const con = mysql.createPool({
     host: db_host,
     user: db_user,
     password: db_password,
     database: db_name
 })
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("DB Connected!");
-  });
+// con.connect(function (err) {
+//     if (err) throw err;
+//     console.log("DB Connected!");
+//   });
   
 
 //Multer Setup 
@@ -46,26 +46,26 @@ app.post("/imagesave", upload.single("image"), (req, res) => {
   console.log(req.body)
     const fileName = req.body.id.split("|")
     const mytime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-    const sqlQuery = `INSERT  INTO users ( user_id, date_update, width_icon, height_icon) VALUES ('${fileName[1]}', '${mytime}', ${req.body.width_icon}, ${req.body.height_icon}) ON DUPLICATE KEY UPDATE date_update=VALUES(date_update), width_icon=VALUES(width_icon), height_icon=VALUES(height_icon)`
+    const sqlQuery = `INSERT  INTO users ( user_id, date_update, width_icon, height_icon, fname, lname, username) VALUES ('${fileName[1]}', '${mytime}', '${req.body.width_icon}', '${req.body.height_icon}', '${req.body.fname}', '${req.body.lname}', '${req.body.username}') ON DUPLICATE KEY UPDATE date_update=VALUES(date_update), width_icon=VALUES(width_icon), height_icon=VALUES(height_icon), fname=VALUES(fname), lname=VALUES(lname), username=VALUES(username)`
     
     con.query(sqlQuery, function (err, result) {
       if (err) throw err;
       console.log("updated!")
     })  
-    res.json({ message: fileName[1], width_icon: req.body.width_icon, height_icon: req.body.height_icon });
+    res.json({ id: fileName[1], width_icon: req.body.width_icon, height_icon: req.body.height_icon, fname: req.body.fname, lname: req.body.lname, username: req.body.username });
   });
 
   app.post("/vanillasave", (req, res) => {
     console.log(req.body)
-      // const fileName = req.body.id.split("|")
-      // const mytime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-      // const sqlQuery = `INSERT  INTO users ( user_id, date_update, width_icon, height_icon) VALUES ('${fileName[1]}', '${mytime}', ${req.body.width_icon}, ${req.body.height_icon}) ON DUPLICATE KEY UPDATE date_update=VALUES(date_update), width_icon=VALUES(width_icon), height_icon=VALUES(height_icon)`
+    const fileName = req.body.id.split("|")
+      const mytime = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+      const sqlQuery = `INSERT  INTO users ( user_id, date_update, fname, lname, username) VALUES ('${fileName[1]}', '${mytime}', '${req.body.fname}', '${req.body.lname}', '${req.body.username}') ON DUPLICATE KEY UPDATE date_update=VALUES(date_update),fname=VALUES(fname), lname=VALUES(lname), username=VALUES(username)`
       
-      // con.query(sqlQuery, function (err, result) {
-      //   if (err) throw err;
-      //   console.log("updated!")
-      // })  
-      res.json({ fname: req.body.fname, lname: req.body.lname, width_icon: req.body.width_icon, height_icon: req.body.height_icon });
+      con.query(sqlQuery, function (err, result) {
+        if (err) throw err;
+        console.log("updated!")
+      })  
+      res.json({ id: fileName[1], fname: req.body.fname, lname: req.body.lname, username: req.body.username });
     });
 
   app.get("/userid/:id", (req, res) => {
@@ -75,7 +75,7 @@ app.post("/imagesave", upload.single("image"), (req, res) => {
       if ((result[0] == "") || (result[0] == undefined)) {
         res.json(null)
       }else {
-        res.json({id: result[0].user_id, width_icon: result[0].width_icon, height_icon: result[0].height_icon})
+        res.json({id: result[0].user_id, width_icon: result[0].width_icon, height_icon: result[0].height_icon, fname: result[0].fname, lname: result[0].lname, username: result[0].username})
       }
     })
   })

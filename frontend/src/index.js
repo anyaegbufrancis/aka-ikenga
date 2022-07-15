@@ -6,6 +6,7 @@ import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
 import { createStore } from "redux"
 import rootReducer from "./redux/reducers";
 import { Provider } from "react-redux";
+import { NavBar, Footer } from "./components";
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import reportWebVitals from './reportWebVitals'
 import "./index.css";
@@ -16,8 +17,10 @@ const store = createStore(rootReducer, window.devToolsExtension && window.devToo
 ReactDOM.render(
   <Provider store={store}>  
   <Router>
-    <Auth0ProviderWithHistory>
+    <Auth0ProviderWithHistory>      
+    <NavBar />
       <App />
+      <Footer />
     </Auth0ProviderWithHistory>
   </Router>
   </Provider>,

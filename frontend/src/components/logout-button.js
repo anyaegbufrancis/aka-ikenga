@@ -19,6 +19,7 @@ const LogoutButton = () => {
     axios.get(`${serverURL}/userid/${(user.sub.split("|")[1])}`)
       .then(response => {
         if (response.data !== null) {
+          console.log(response.data)
           dispatch({
             type: PROFILE, payload: {
               profile_pic: response.data.id,
@@ -30,7 +31,9 @@ const LogoutButton = () => {
               nickname: user.nickname,
               picture: user.picture,
               sub: user.sub,
-              updated_at: user.updated_at
+              updated_at: user.updated_at,
+              fname: response.data.fname,
+              lname: response.data.lname
             }
           })
         } else {
@@ -42,7 +45,7 @@ const LogoutButton = () => {
               nickname: user.nickname,
               picture: user.picture,
               sub: user.sub,
-              updated_at: user.updated_at
+              updated_at: user.updated_at,
             }
           })
         }
@@ -51,6 +54,7 @@ const LogoutButton = () => {
       });
 
   }, [user.sub, user.email, user.email_verified, user.name, user.nickname, user.picture, user.updated_at, dispatch])
+
 
   function toggleStatus() {
     dispatch({ type: TOGGLER, payload: { checkstatus: !toggle.checkstatus } });
@@ -63,7 +67,8 @@ const LogoutButton = () => {
         file: profile.file,
         profile_pic: profile.profile_pic,
         width_icon: profile.width_icon,
-        height_icon: profile.height_icon
+        height_icon: profile.height_icon,
+        picture: profile.picture
       }
     })
   }
@@ -71,7 +76,7 @@ const LogoutButton = () => {
   return (
     <>
       <Form className="d-flex">
-        {user && <Button variant="light" style={{ marginRight: "1rem" }}>Welcome, {user.email}</Button>}
+        {profile && <Button variant="light" style={{ marginRight: "1rem" }}>Welcome, {profile.fname}</Button>}
 
         { //no user image in db
           ((profile.profile_pic === "none") || (profile.profile_pic === undefined))

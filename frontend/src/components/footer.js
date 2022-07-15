@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faFacebookF, faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons"
 
 const Footer = () => (
-  <footer className="bg-dark p-1 mt-2 text-center text-light" style={{width: "100%", position: "fixed", bottom: "0"}}>
+  <footer className="bg-dark text-center text-light" style={{width: "100%", position: "fixed", bottom: "0"}}>
     <div className="logo" />
     <p>
     <span dangerouslySetInnerHTML={{ "__html": "&copy;" }} />

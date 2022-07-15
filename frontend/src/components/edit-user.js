@@ -56,17 +56,25 @@ const EditUser = () => {
                             width_icon: result.width_icon,
                             height_icon: result.height_icon,
                             picture: profile.picture,
+                            fname: profile.fname,
+                            lname: profile.lname
                         }
                     })
                 } else {
-                    return false
+                    dispatch({
+                        type: PROFILE, payload: {
+                            picture: profile.picture,
+                        }
+                    })
+                    //return false
                 }
                 //console.log(imageFile)
                 const img = new Image();
 
-                if (imageFile.name.match(/\.(jpg|jpeg|png|JPG|JPEG|PNG|gif)$/)) {
+                if (imageFile && (imageFile.name.match(/\.(jpg|jpeg|png|JPG|JPEG|PNG|gif)$/))) {
                     reader.onload = (e) => {
                         img.onload = () => {
+                            console.log("loading")
                             const dimension = imageResize(250, img)
                             const iconSize = imageResize(35, img)
                             const pwidth = dimension.width;
@@ -139,6 +147,7 @@ const EditUser = () => {
             data.append("height_icon", profile.height_icon)
             data.append("fname", udetails.fname)
             data.append("lname", udetails.lname)
+            data.append("username", udetails.fname+ " " +udetails.lname)
             axios.post(`${serverURL}/imagesave`, data)
                 .then(response => {
                     console.log(response.data.width_icon);
@@ -148,7 +157,7 @@ const EditUser = () => {
             onClose()
         } else if (profile.file === undefined && udetails.fname !== "" && udetails.lname !== "") {
             console.log("sending vanilla")
-            axios.post(`${serverURL}/vanillasave`, { fname: udetails.fname, lname: udetails.lname, id: user.sub })
+            axios.post(`${serverURL}/vanillasave`, { username: udetails.fname+ " "+udetails.lname, fname: udetails.fname, lname: udetails.lname, id: user.sub })
                 .then(response => {
                     console.log(response.data);
                 }, (error) => {
@@ -192,7 +201,6 @@ const EditUser = () => {
         }
     }
 
-    console.log(profile.buttonw, profile.buttonmr, profile.buttonmt, profile.buttonml)
 
     return (
         <>
